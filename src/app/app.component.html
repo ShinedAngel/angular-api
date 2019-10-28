@@ -1,0 +1,17 @@
+ <form>
+   <div>
+    <h3>Valida CEP - Review</h3>
+   </div>
+  <input type="text" name="nome" placeholder="Nome Completo" autocomplete="off" [(ngModel)]="cliente.Nome"><br> 
+  <input type="text" name="cpf" placeholder="CPF" autocomplete="off" [(ngModel)]="cliente.CPF"><br>
+  <input type="text" name="cep" placeholder="CEP" autocomplete="off" [(ngModel)]="cliente.CEP" (blur)="VerificaCEP()"><br>
+  <!-- blur serve para ativar um evento quando o campo perde o foco -->
+  <input type="text" name="endereco" placeholder="Endereço" disabled [(ngModel)]="cliente.Endereco"><br>
+  <div *ngIf="!cliente.CPFValido()">
+  CPF Inválido
+  </div>
+  <br>
+  <div>
+    <input type="button" (click)="salvar()" value="Salvar" [disabled]="!cliente.CPFValido()" />
+  </div>
+ </form>

@@ -1,19 +1,26 @@
 import { Component } from '@angular/core';
-import { ResttestService } from './resttest.service';
-
+import { Cliente } from './cliente';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent {
-  title = 'angular-api';
-
-  constructor(private resttestService: ResttestService) { }
-
-  salvar() {
-    this.resttestService.getConfig()
-      .subscribe((data) => console.log(data));
+  title = 'form-tutorial';
+  cliente: Cliente = new Cliente();
+  constructor(private http: HttpClient) {
   }
+  VerificaCEP() {
+    this.http.get(`https://viacep.com.br/ws/${this.cliente.CEP}/json/`).toPromise().then(
+      data => {
+        const dado: any = data;
+        this.cliente.Endereco = dado.logradouro;
+      }
+    );
+  }
+  salvar() {
+    alert("Dados salvos com sucesso!");
+    console.log(this.cliente);
+  };
 }
